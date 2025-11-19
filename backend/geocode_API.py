@@ -38,7 +38,7 @@ def geocode(address: str):
         logger.warning(f"No geocoding results found for: {address}")
         raise HTTPException(status_code=404, detail=f"No results found for address '{address}'")
 
-    logger.info(f"Geocoding successful for: {address}")
+    logger.info(f"Geocoding successful for: {address}, latitude: {data[0]["lat"]}, longitude: {data[0]["lon"]}")
 
     return {
         "latitude": data[0]["lat"],

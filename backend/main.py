@@ -21,7 +21,7 @@ app.add_middleware(
     allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
-)
+    )
 
 # -------------------------------------------------------
 # /distance ENDPOINT 
@@ -35,14 +35,12 @@ def geocode_distance(
     authorized: bool = Depends(verify_api_key)
 ):
     logger.info(
-        f"Received /distance request | address1='{address1}' | address2='{address2}' | unit='{unit}'"
-    )
+        f"Received /distance request | address1='{address1}' | address2='{address2}' | unit='{unit}'")
     try:
         result = calculate_and_store(address1, address2, unit, db)
 
         logger.info(
-            f"Distance successfully calculated and stored for '{address1}' to '{address2}'"
-        )
+            f"Distance successfully calculated and stored for '{address1}' to '{address2}'")
         return {"distance": result}
 
     except HTTPException as e:

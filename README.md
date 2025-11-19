@@ -49,26 +49,87 @@ frontend/
 │
 README.md
 ```
+---
 
-## ⚙️ Backend Setup
+# ⚙️ 1. Backend Setup (FastAPI + PostgreSQL)
 
-1. Create virtual environment  
-2. Install dependencies  
-3. Setup PostgreSQL  
-4. Update DB credentials  
-5. Run backend:
+### Step 1 — Navigate to backend folder
+cd backend
 
-```
+### Step 2 — Create a virtual environment
+python3 -m venv myenv
+source myenv/bin/activate     # macOS/Linux
+myenv\Scripts\activate      # Windows
+
+### Step 3 — Install dependencies
+pip install -r requirements.txt
+
+### Step 4 — Configure PostgreSQL database
+
+Create a database:
+CREATE DATABASE distances;
+
+Add credentials in `.env`:
+API_PASSWORD=your_api_password
+DB_USER=postgres
+DB_PASSWORD=yourpassword
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=distances
+
+### Step 5 — Start backend
 uvicorn main:app --reload
-```
 
-## 🎨 Frontend Setup
+Backend available at:
+http://127.0.0.1:8000
 
-```
+Swagger docs:
+http://127.0.0.1:8000/docs
+
+---
+
+# 🎨 2. Frontend Setup (React)
+
+### Step 1 — Navigate to frontend folder
 cd frontend
+
+### Step 2 — Install dependencies
 npm install
+
+### Step 3 — Start frontend
 npm start
-```
+
+Frontend available at:
+http://localhost:3000
+
+---
+
+# 🔐 3. API Authentication
+
+Both `/distance` and `/history` require an API key.
+
+Send it via header:
+X-API-Key: your_api_password
+
+In React:
+headers: { "X-API-Key": process.env.REACT_APP_API_KEY }
+
+---
+
+# 📦 4. Frontend Environment Variables
+
+Create `frontend/.env`:
+REACT_APP_API_KEY=your_api_password
+REACT_APP_BACKEND_URL=http://127.0.0.1:8000
+
+Restart frontend after creating `.env`.
+
+---
+
+# 🧪 5. Test API Manually
+curl -H "X-API-Key: your_api_password" http://127.0.0.1:8000/history
+
+---
 
 ## 🔌 API Endpoints
 
